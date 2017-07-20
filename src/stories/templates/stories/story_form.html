@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}New Story{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="stories:story-add" %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+<div id="sec1" class="text-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>New Story</h1>
+        <p class="lead">Our adventure begins here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-7">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'stories/form-template.html' %}
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock container %}

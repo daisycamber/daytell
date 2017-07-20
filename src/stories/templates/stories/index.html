@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Stories{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="stories:index" %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+<div id="sec1" class="text-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>{% include "_brandname.html" %}</h1>
+        <p class="lead">Our Stories, Our Votes</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if all_stories %}
+<ul>
+  {% for story in all_stories %}
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+      <h2><a href="{% url 'stories:detailview' story.id %}">{{ story.title }}</a> - {{ story.genre }}</h2>
+    </div>
+  </div>
+</div>
+  {% endfor %}
+</ul>
+{% else %}
+  <h3>You don't have any stories</h3>
+{% endif %}
+
+
+
+
+
+{% endblock container %}

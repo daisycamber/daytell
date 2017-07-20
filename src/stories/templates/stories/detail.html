@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Stories{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="stories:index" %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+<div id="sec1" class="text-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>{{ story }}</h1>
+        <p class="lead">{{ story.genre }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% for branch in story.branch_set.all %}
+  <!-- <td>Author: {{ branch.author }}</td> -->
+  <list>
+    <li>Author: {{ branch.creator.get_username }} | Content: {{ branch.content }}</li>
+  </list>
+{% endfor %}
+
+
+
+<h3><a href="/stories/{{ story.pk }}/branch/">New Branch</a></h3>
+{% if form %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-7">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'stories/form-template.html' %}
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success" href="/stories/{{ story.pk }}/">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock container %}
